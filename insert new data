@@ -1,0 +1,88 @@
+ table = new JTable();
+        table.setBounds(240, 111, 438, 334);
+        contentPane.add(table);
+        updateTable(); // Initialize the table with empty data
+
+        JLabel lblNewLabel_1 = new JLabel("LIBRARY LIST:");
+        lblNewLabel_1.setFont(new Font("Courier New", Font.ITALIC, 27));
+        lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
+        lblNewLabel_1.setBounds(240, 73, 232, 38);
+        contentPane.add(lblNewLabel_1);
+
+*****
+
+JLabel lblAtIndexNo = new JLabel("AT INDEX NUMBER");
+        lblAtIndexNo.setForeground(new Color(79, 117, 94));
+        lblAtIndexNo.setFont(new Font("Franklin Gothic Book", Font.BOLD, 15));
+        lblAtIndexNo.setBounds(41, 377, 167, 26);
+        contentPane.add(lblAtIndexNo);
+        
+        JLabel lblNewLabel_2 = new JLabel("index");
+        lblNewLabel_2.setFont(new Font("Arial Narrow", Font.PLAIN, 11));
+        lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel_2.setBounds(41, 241, 30, 14);
+        contentPane.add(lblNewLabel_2);
+        
+        JLabel lblNewLabel_2_1 = new JLabel("element name");
+        lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.LEFT);
+        lblNewLabel_2_1.setFont(new Font("Arial Narrow", Font.PLAIN, 11));
+        lblNewLabel_2_1.setBounds(81, 241, 127, 14);
+        contentPane.add(lblNewLabel_2_1);
+        
+        JLabel lblNewLabel_3 = new JLabel("LIBRARY MANAGEMENT SYSTEM");
+        lblNewLabel_3.setForeground(new Color(79, 117, 94));
+        lblNewLabel_3.setFont(new Font("Century Gothic", Font.BOLD, 30));
+        lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel_3.setBounds(81, 22, 495, 40);
+        contentPane.add(lblNewLabel_3);
+    }
+    
+    // Method to update JTable with library list data
+    private void updateTable() {
+        String[] columnNames = {"Index", "Element"};
+        String[][] data = new String[libraryList.size()][2];
+        for (int i = 0; i < libraryList.size(); i++) {
+            data[i][0] = String.valueOf(i);
+            data[i][1] = libraryList.get(i);
+        }
+        table.setModel(new DefaultTableModel(data, columnNames));
+    }
+
+*****
+
+ JLabel lblAtIndexNo = new JLabel("AT INDEX NUMBER");
+       lblAtIndexNo.setForeground(new Color(79, 117, 94));
+       lblAtIndexNo.setFont(new Font("Franklin Gothic Book", Font.BOLD, 15));
+       lblAtIndexNo.setBounds(41, 377, 167, 26);
+       contentPane.add(lblAtIndexNo);
+      
+       JLabel lblNewLabel_2 = new JLabel("index");
+       lblNewLabel_2.setFont(new Font("Arial Narrow", Font.PLAIN, 11));
+       lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+       lblNewLabel_2.setBounds(41, 241, 30, 14);
+       contentPane.add(lblNewLabel_2);
+      
+       JLabel lblNewLabel_2_1 = new JLabel("element name");
+       lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.LEFT);
+       lblNewLabel_2_1.setFont(new Font("Arial Narrow", Font.PLAIN, 11));
+       lblNewLabel_2_1.setBounds(81, 241, 127, 14);
+       contentPane.add(lblNewLabel_2_1);
+      
+       JLabel lblNewLabel_3 = new JLabel("LIBRARY MANAGEMENT SYSTEM");
+       lblNewLabel_3.setForeground(new Color(79, 117, 94));
+       lblNewLabel_3.setFont(new Font("Century Gothic", Font.BOLD, 30));
+       lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+       lblNewLabel_3.setBounds(81, 22, 495, 40);
+       contentPane.add(lblNewLabel_3);
+   }
+  
+   // Method to update JTable with library list data
+   private void updateTable() {
+       String[] columnNames = {"Index", "Element"};
+       String[][] data = new String[libraryList.size()][2];
+       for (int i = 0; i < libraryList.size(); i++) {
+           data[i][0] = String.valueOf(i);
+           data[i][1] = libraryList.get(i);
+       }
+       table.setModel(new DefaultTableModel(data, columnNames));
+   }

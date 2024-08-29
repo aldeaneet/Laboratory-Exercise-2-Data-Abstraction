@@ -1,0 +1,16 @@
+ // Returns the element at the specified index
+   private String getElement(int index) {
+       if (index >= 0 && index < libraryList.size()) {
+           return libraryList.get(index);
+       }
+       return null; // Index out of range
+   }
+  
+   // Returns the number of elements in the array
+   private int getLibrarySize() {
+       return libraryList.size();
+   }
+   // Returns `True` if the array is empty, otherwise `False`
+   private boolean isLibraryEmpty() {
+       return libraryList.isEmpty();
+   }

@@ -1,0 +1,277 @@
+package _1b_Array;
+import java.awt.EventQueue;
+import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
+import java.awt.Font;
+public class library extends JFrame {
+   private static final long serialVersionUID = 1L;
+   private JPanel contentPane;
+   private JTextField txtAddElement;
+   private JTable table;
+   private JTextField indexElement;
+   private JTextField elementInserted;
+   private JTextField indexSearch;
+   private JTextField removeIndex;
+   private ArrayList<String> libraryList;
+   /**
+    * Launch the application.
+    */
+   public static void main(String[] args) {
+       EventQueue.invokeLater(new Runnable() {
+           public void run() {
+               try {
+                   library frame = new library();
+                   frame.setVisible(true);
+               } catch (Exception e) {
+                   e.printStackTrace();
+               }
+           }
+       });
+   }
+   /**
+    * Create the frame.
+    */
+   public library() {
+       libraryList = new ArrayList<>(); // Initialize the ArrayList
+       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       setBounds(100, 100, 700, 525);
+       contentPane = new JPanel();
+       contentPane.setBackground(new Color(219, 236, 223));
+       contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+       setContentPane(contentPane);
+       contentPane.setLayout(null);
+      
+       //Abigail Lapuz - start
+       txtAddElement = new JTextField();
+       txtAddElement.setToolTipText("");
+       txtAddElement.setBounds(41, 105, 167, 25);
+       contentPane.add(txtAddElement);
+       txtAddElement.setColumns(10);
+       JLabel lblNewLabel = new JLabel("ADD ELEMENT");
+       lblNewLabel.setForeground(new Color(79, 117, 94));
+       lblNewLabel.setFont(new Font("Franklin Gothic Book", Font.BOLD, 15));
+       lblNewLabel.setBounds(41, 82, 167, 27);
+       contentPane.add(lblNewLabel);
+       //Abigail Lapuz - end
+      
+       //Jasdy Kean Portera - start
+       table = new JTable();
+       table.setBounds(240, 111, 438, 334);
+       contentPane.add(table);
+       updateTable(); // Initialize the table with empty data
+       JLabel lblNewLabel_1 = new JLabel("LIBRARY LIST:");
+       lblNewLabel_1.setFont(new Font("Courier New", Font.ITALIC, 27));
+       lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
+       lblNewLabel_1.setBounds(240, 73, 232, 38);
+       contentPane.add(lblNewLabel_1);
+       //Jasdy Kean Portera - end
+       //Abigail Lapuz - start
+       JButton btnAddElement = new JButton("ADD");
+       btnAddElement.setBackground(new Color(245, 251, 196));
+       btnAddElement.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+               addElement(txtAddElement.getText());
+               updateTable();
+           }
+       });
+       //Abigail Lapuz - end
+      
+       //Aldean Jude De Guzman - start
+       btnAddElement.setBounds(41, 137, 167, 40);
+       contentPane.add(btnAddElement);
+              
+       JLabel lblInsertElement = new JLabel("INSERT ELEMENT");
+       lblInsertElement.setForeground(new Color(79, 117, 94));
+       lblInsertElement.setFont(new Font("Franklin Gothic Book", Font.BOLD, 15));
+       lblInsertElement.setBounds(41, 207, 167, 26);
+       contentPane.add(lblInsertElement);
+       indexElement = new JTextField();
+       indexElement.setColumns(10);
+       indexElement.setBounds(41, 256, 30, 25);
+       contentPane.add(indexElement);
+       elementInserted = new JTextField();
+       elementInserted.setColumns(10);
+       elementInserted.setBounds(81, 256, 127, 25);
+       contentPane.add(elementInserted);
+       JButton btnInsertElement = new JButton("INSERT");
+       btnInsertElement.setBackground(new Color(245, 251, 196));
+       btnInsertElement.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+               int index = Integer.parseInt(indexElement.getText());
+               String element = elementInserted.getText();
+               insertElement(index, element);
+               updateTable();
+           }
+       });
+      
+       btnInsertElement.setBounds(41, 292, 167, 40);
+       contentPane.add(btnInsertElement);
+       //Aldean Jude De Guzman - end
+      
+       //Jarl Robelo - start
+       indexSearch = new JTextField();
+       indexSearch.setColumns(10);
+       indexSearch.setBounds(482, 73, 116, 26);
+       contentPane.add(indexSearch);
+       JButton btnSearchIndex = new JButton("GO");
+       btnSearchIndex.setBackground(new Color(245, 251, 196));
+       btnSearchIndex.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+               try {
+                   int index = Integer.parseInt(indexSearch.getText());
+                   String element = getElement(index);
+                   if (element != null) {
+                       JOptionPane.showMessageDialog(contentPane, "Element at index " + index + " is: " + element);
+                   } else {
+                       JOptionPane.showMessageDialog(contentPane, "Index out of range.");
+                   }
+               } catch (NumberFormatException ex) {
+                   JOptionPane.showMessageDialog(contentPane, "Please enter a valid number.");
+               }
+           }
+       });
+       btnSearchIndex.setBounds(608, 73, 67, 23);
+       contentPane.add(btnSearchIndex);
+       JButton btnSizeOfLibrary = new JButton("SIZE OF LIBRARY");
+       btnSizeOfLibrary.setBackground(new Color(245, 251, 196));
+       btnSizeOfLibrary.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+               int size = getLibrarySize();
+               JOptionPane.showMessageDialog(contentPane, "Size of the library: " + size);
+           }
+       });
+       btnSizeOfLibrary.setBounds(400, 456, 146, 23);
+       contentPane.add(btnSizeOfLibrary);
+       JButton btnIsEmpty = new JButton("EMPTY ?");
+       btnIsEmpty.setBackground(new Color(245, 251, 196));
+       btnIsEmpty.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+               boolean isEmpty = isLibraryEmpty();
+               JOptionPane.showMessageDialog(contentPane, "Is the library empty? " + (isEmpty ? "Yes" : "No"));
+           }
+       });
+       btnIsEmpty.setBounds(556, 456, 122, 23);
+       contentPane.add(btnIsEmpty);
+       //Jarl Robelo - end
+      
+       // Bon Andrew Garcia - start
+       JLabel lblRemoveElement = new JLabel("REMOVE ELEMENT\r\n");
+       lblRemoveElement.setForeground(new Color(79, 117, 94));
+       lblRemoveElement.setFont(new Font("Franklin Gothic Book", Font.BOLD, 15));
+       lblRemoveElement.setBounds(41, 365, 167, 26);
+       contentPane.add(lblRemoveElement);
+       removeIndex = new JTextField();
+       removeIndex.setColumns(10);
+       removeIndex.setBounds(41, 402, 167, 26);
+       contentPane.add(removeIndex);
+      
+       JButton btnRemoveAnElement = new JButton("REMOVE");
+       btnRemoveAnElement.setBackground(new Color(245, 251, 196));
+       btnRemoveAnElement.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+               int index = Integer.parseInt(removeIndex.getText());
+               removeElement(index);
+               updateTable();
+           }
+       });
+      
+       btnRemoveAnElement.setBounds(41, 439, 167, 40);
+       contentPane.add(btnRemoveAnElement);
+       // Bon Andrew Garcia - end
+      
+       // Jasdy Kean Portera - start
+       JLabel lblAtIndexNo = new JLabel("AT INDEX NUMBER");
+       lblAtIndexNo.setForeground(new Color(79, 117, 94));
+       lblAtIndexNo.setFont(new Font("Franklin Gothic Book", Font.BOLD, 15));
+       lblAtIndexNo.setBounds(41, 377, 167, 26);
+       contentPane.add(lblAtIndexNo);
+      
+       JLabel lblNewLabel_2 = new JLabel("index");
+       lblNewLabel_2.setFont(new Font("Arial Narrow", Font.PLAIN, 11));
+       lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+       lblNewLabel_2.setBounds(41, 241, 30, 14);
+       contentPane.add(lblNewLabel_2);
+      
+       JLabel lblNewLabel_2_1 = new JLabel("element name");
+       lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.LEFT);
+       lblNewLabel_2_1.setFont(new Font("Arial Narrow", Font.PLAIN, 11));
+       lblNewLabel_2_1.setBounds(81, 241, 127, 14);
+       contentPane.add(lblNewLabel_2_1);
+      
+       JLabel lblNewLabel_3 = new JLabel("LIBRARY MANAGEMENT SYSTEM");
+       lblNewLabel_3.setForeground(new Color(79, 117, 94));
+       lblNewLabel_3.setFont(new Font("Century Gothic", Font.BOLD, 30));
+       lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+       lblNewLabel_3.setBounds(81, 22, 495, 40);
+       contentPane.add(lblNewLabel_3);
+   }
+  
+   // Method to update JTable with library list data
+   private void updateTable() {
+       String[] columnNames = {"Index", "Element"};
+       String[][] data = new String[libraryList.size()][2];
+       for (int i = 0; i < libraryList.size(); i++) {
+           data[i][0] = String.valueOf(i);
+           data[i][1] = libraryList.get(i);
+       }
+       table.setModel(new DefaultTableModel(data, columnNames));
+   }
+   //Jasdy Kean Portera - end
+   //Abigail Lapuz - start
+   // Adds an element to the end of the array
+   private void addElement(String element) {
+       libraryList.add(element);
+   }
+   //Abigail Lapuz - end
+  
+   //Aldean Jude De Guzman - start
+   // Inserts an element at a specified index, shifting elements as needed
+   private void insertElement(int index, String element) {
+       if (index >= 0 && index <= libraryList.size()) {
+           libraryList.add(index, element);
+       }
+   }
+   //Aldean Jude De Guzman - end
+  
+  
+   //Bon Andrew Garcia - start
+   // Removes the element at the specified index, shifting elements as needed
+   private void removeElement(int index) {
+       if (index >= 0 && index < libraryList.size()) {
+           libraryList.remove(index);
+       }
+   }
+   //Bon Andrew Garcia - end
+  
+   //Jarl Robelo - start
+   // Returns the element at the specified index
+   private String getElement(int index) {
+       if (index >= 0 && index < libraryList.size()) {
+           return libraryList.get(index);
+       }
+       return null; // Index out of range
+   }
+  
+   // Returns the number of elements in the array
+   private int getLibrarySize() {
+       return libraryList.size();
+   }
+   // Returns `True` if the array is empty, otherwise `False`
+   private boolean isLibraryEmpty() {
+       return libraryList.isEmpty();
+   }
+   //Jarl Robelo - end
+}
+

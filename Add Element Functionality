@@ -1,0 +1,26 @@
+txtAddElement = new JTextField();
+       txtAddElement.setToolTipText("");
+       txtAddElement.setBounds(41, 105, 167, 25);
+       contentPane.add(txtAddElement);
+       txtAddElement.setColumns(10);
+       JLabel lblNewLabel = new JLabel("ADD ELEMENT");
+       lblNewLabel.setForeground(new Color(79, 117, 94));
+       lblNewLabel.setFont(new Font("Franklin Gothic Book", Font.BOLD, 15));
+       lblNewLabel.setBounds(41, 82, 167, 27);
+       contentPane.add(lblNewLabel);
+
+
+  JButton btnAddElement = new JButton("ADD");
+       btnAddElement.setBackground(new Color(245, 251, 196));
+       btnAddElement.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+               addElement(txtAddElement.getText());
+               updateTable();
+           }
+       });
+
+
+ // Adds an element to the end of the array
+   private void addElement(String element) {
+       libraryList.add(element);
+   }

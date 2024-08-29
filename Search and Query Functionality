@@ -1,0 +1,43 @@
+indexSearch = new JTextField();
+       indexSearch.setColumns(10);
+       indexSearch.setBounds(482, 73, 116, 26);
+       contentPane.add(indexSearch);
+       JButton btnSearchIndex = new JButton("GO");
+       btnSearchIndex.setBackground(new Color(245, 251, 196));
+       btnSearchIndex.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+               try {
+                   int index = Integer.parseInt(indexSearch.getText());
+                   String element = getElement(index);
+                   if (element != null) {
+                       JOptionPane.showMessageDialog(contentPane, "Element at index " + index + " is: " + element);
+                   } else {
+                       JOptionPane.showMessageDialog(contentPane, "Index out of range.");
+                   }
+               } catch (NumberFormatException ex) {
+                   JOptionPane.showMessageDialog(contentPane, "Please enter a valid number.");
+               }
+           }
+       });
+       btnSearchIndex.setBounds(608, 73, 67, 23);
+       contentPane.add(btnSearchIndex);
+       JButton btnSizeOfLibrary = new JButton("SIZE OF LIBRARY");
+       btnSizeOfLibrary.setBackground(new Color(245, 251, 196));
+       btnSizeOfLibrary.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+               int size = getLibrarySize();
+               JOptionPane.showMessageDialog(contentPane, "Size of the library: " + size);
+           }
+       });
+       btnSizeOfLibrary.setBounds(400, 456, 146, 23);
+       contentPane.add(btnSizeOfLibrary);
+       JButton btnIsEmpty = new JButton("EMPTY ?");
+       btnIsEmpty.setBackground(new Color(245, 251, 196));
+       btnIsEmpty.addActionListener(new ActionListener() {
+           public void actionPerformed(ActionEvent e) {
+               boolean isEmpty = isLibraryEmpty();
+               JOptionPane.showMessageDialog(contentPane, "Is the library empty? " + (isEmpty ? "Yes" : "No"));
+           }
+       });
+       btnIsEmpty.setBounds(556, 456, 122, 23);
+       contentPane.add(btnIsEmpty);
